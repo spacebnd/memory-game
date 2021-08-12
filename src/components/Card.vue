@@ -1,8 +1,9 @@
 <template>
   <div class="card-container">
     <img
-      :src="require(`../assets/icons/${card.iconName}.png`)"
-      :alt="`${card.iconName} icon`"
+      v-show="isOpen"
+      :src="require(`../assets/icons/${card.name}.png`)"
+      :alt="`${card.name} icon`"
       class="card-image"
     />
   </div>
@@ -18,6 +19,12 @@ export default {
       required: true,
     },
   },
+
+  data() {
+    return {
+      isOpen: true,
+    }
+  },
 }
 </script>
 
@@ -27,7 +34,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 80px;
   width: 15%;
   margin: 5px;
   border-radius: 5px;

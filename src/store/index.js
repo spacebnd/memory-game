@@ -1,17 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { CARDS } from '../constants'
+import { generateCardItem } from '../utils'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cards: [...CARDS],
+    cardItems: [],
   },
+
   getters: {
-    cards: (state) => state.cards,
+    getCardItems: (state) => state.cardItems,
   },
-  mutations: {},
-  actions: {},
-  modules: {},
+
+  mutations: {
+    setCardItems(state, payload) {
+      state.cardItems = payload
+    },
+  },
+
+  actions: {
+    generateCardItems({ commit }, payload) {
+      const cardItems = payload.reduce((acc, currentName) => {
+        acc.push(generateCardItem(currentName))
+        acc.push(generateCardItem(currentName))
+        return acc
+      }, [])
+
+      commit('setCardItems', cardItems)
+    },
+  },
 })
