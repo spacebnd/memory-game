@@ -5,7 +5,9 @@
 </template>
 
 <script>
+import _shuffle from 'lodash/shuffle'
 import Card from './Card'
+
 export default {
   name: 'CardsContainer',
 
@@ -17,7 +19,7 @@ export default {
   },
 
   mounted() {
-    this.cards = this.$store.getters.cards
+    this.cards = _shuffle(this.$store.getters.cards)
   },
 }
 </script>
