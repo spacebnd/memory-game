@@ -1,7 +1,6 @@
 <template>
-  <div>
-    CardsContainer
-    <Card />
+  <div class="cards-container">
+    <Card v-for="card of cards" :key="card.id" :card="card" />
   </div>
 </template>
 
@@ -9,8 +8,28 @@
 import Card from './Card'
 export default {
   name: 'CardsContainer',
+
   components: { Card },
+  data() {
+    return {
+      cards: [],
+    }
+  },
+
+  mounted() {
+    this.cards = this.$store.getters.cards
+  },
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.cards-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: 0 auto;
+}
+</style>

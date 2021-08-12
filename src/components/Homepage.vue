@@ -1,6 +1,5 @@
 <template>
   <div>
-    Homepage
     <CardsContainer />
     <ControlsPanel />
   </div>
