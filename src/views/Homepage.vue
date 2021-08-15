@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CardsContainer from './CardsContainer'
-import ControlsPanel from './ControlsPanel'
+import CardsContainer from '../components/CardsContainer'
+import ControlsPanel from '../components/ControlsPanel'
 import { ICON_NAMES } from '../constants'
 export default {
   name: 'Homepage',

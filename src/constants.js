@@ -18,3 +18,5 @@ export const ICON_NAMES = [
   'thumb-down',
   'touch-app',
 ]
+
+export const OPEN_CARD_DURATION = 5000

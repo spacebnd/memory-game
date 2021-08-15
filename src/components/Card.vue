@@ -1,7 +1,7 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" @click="cardClickHandler">
     <img
-      v-show="isOpen"
+      v-show="isCardOpen"
       :src="require(`../assets/icons/${card.name}.png`)"
       :alt="`${card.name} icon`"
       class="card-image"
@@ -20,10 +20,16 @@ export default {
     },
   },
 
-  data() {
-    return {
-      isOpen: true,
-    }
+  computed: {
+    isCardOpen() {
+      return this.$store.getters['getOpenedCards'].includes(this.card.id)
+    },
+  },
+
+  methods: {
+    cardClickHandler() {
+      this.$store.dispatch('openCard', this.card.id)
+    },
   },
 }
 </script>

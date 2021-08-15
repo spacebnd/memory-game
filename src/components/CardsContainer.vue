@@ -1,6 +1,6 @@
 <template>
   <div class="cards-container">
-    <Card v-for="card of cardItems" :key="card.id" :card="card" />
+    <Card v-for="card of cards" :key="card.id" :card="card" />
   </div>
 </template>
 
@@ -14,8 +14,8 @@ export default {
   components: { Card },
 
   computed: {
-    cardItems() {
-      return _shuffle(this.$store.getters['getCardItems'])
+    cards() {
+      return _shuffle(this.$store.getters['getCards'])
     },
   },
 }
