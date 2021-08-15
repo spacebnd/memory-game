@@ -3,9 +3,9 @@
     class="card-container"
     :class="[{ match: isMatch }, { excluded: isExcluded }]"
     @click="cardClickHandler"
+    :style="isOpen ? 'background-color: yellow' : ''"
   >
     <img
-      v-show="isOpen"
       :src="require(`../assets/icons/${card.name}.png`)"
       :alt="`${card.name} icon`"
       class="card-image"

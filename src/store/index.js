@@ -11,16 +11,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isGameInProgress: false,
+    isUiLocked: true,
     cards: [],
     firstCard: null,
     secondCard: null,
     excludedCards: [],
     matchCards: [],
     cardTimer: null,
-    isUiLocked: false,
+    leaderboard: [],
   },
 
   getters: {
+    getIsGameInProgress: (state) => state.isGameInProgress,
+
+    getIsGameOver: (state) => state.cards.length === state.excludedCards.length,
+
+    getIsUiLocked: (state) => state.isUiLocked,
+
     getCards: (state) => state.cards,
 
     getOpenCards: (state) => [state.firstCard, state.secondCard],
@@ -29,10 +37,18 @@ export default new Vuex.Store({
 
     getMatchCards: (state) => state.matchCards,
 
-    getIsUiLocked: (state) => state.isUiLocked,
+    getLeaderboard: (state) => state.leaderboard,
   },
 
   mutations: {
+    setIsGameInProgress(state, payload) {
+      state.isGameInProgress = payload
+    },
+
+    setIsUiLocked(state, payload) {
+      state.isUiLocked = payload
+    },
+
     setCards(state, payload) {
       state.cards = payload
     },
@@ -76,8 +92,8 @@ export default new Vuex.Store({
       clearTimeout(state.cardTimer)
     },
 
-    toggleIsUiLocked(state, payload) {
-      state.isUiLocked = payload
+    setResultToLeaderboard(state, time) {
+      state.leaderboard.push(time)
     },
   },
 
@@ -90,6 +106,17 @@ export default new Vuex.Store({
       }, [])
 
       commit('setCards', cards)
+    },
+
+    startGame({ commit }) {
+      commit('setIsGameInProgress', true)
+      commit('setIsUiLocked', false)
+    },
+
+    finishGame({ commit }, time) {
+      commit('setIsGameInProgress', false)
+      commit('setIsUiLocked', true)
+      commit('setResultToLeaderboard', time)
     },
 
     openCard({ commit, state }, id) {
@@ -112,7 +139,7 @@ export default new Vuex.Store({
           commit('setMatchCards', [firstCard.id, secondCard.id])
         }
 
-        commit('toggleIsUiLocked', true)
+        commit('setIsUiLocked', true)
         setTimeout(
           () => {
             if (isMatch) {
@@ -121,7 +148,7 @@ export default new Vuex.Store({
             }
             commit('resetAllOpenCards')
             commit('resetCardTimer')
-            commit('toggleIsUiLocked', false)
+            commit('setIsUiLocked', false)
           },
           isMatch ? MATCH_DISPLAY_DURATION : ERROR_DISPLAY_DURATION
         )
