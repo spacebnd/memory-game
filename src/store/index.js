@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { generateCardItem } from '../utils'
 import {
-  ERROR_DISPLAY_DURATION,
   MATCH_DISPLAY_DURATION,
+  NOT_MATCH_DISPLAY_DURATION,
   OPEN_CARD_DISPLAY_DURATION,
 } from '../constants'
 
@@ -19,7 +19,7 @@ export default new Vuex.Store({
     excludedCards: [],
     matchCards: [],
     cardTimer: null,
-    leaderboard: ['12:21:12', '00:02:42', '21:45:21', '00:12:42', '01:12:11'],
+    leaderboard: [],
   },
 
   getters: {
@@ -150,7 +150,7 @@ export default new Vuex.Store({
             commit('resetCardTimer')
             commit('setIsUiLocked', false)
           },
-          isMatch ? MATCH_DISPLAY_DURATION : ERROR_DISPLAY_DURATION
+          isMatch ? MATCH_DISPLAY_DURATION : NOT_MATCH_DISPLAY_DURATION
         )
       }
     },

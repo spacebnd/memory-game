@@ -21,4 +21,4 @@ export const ICON_NAMES = [
 
 export const OPEN_CARD_DISPLAY_DURATION = 5000
 export const MATCH_DISPLAY_DURATION = 800
-export const ERROR_DISPLAY_DURATION = 400
+export const NOT_MATCH_DISPLAY_DURATION = 400

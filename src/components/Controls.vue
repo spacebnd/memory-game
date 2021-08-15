@@ -19,6 +19,7 @@ export default {
       timer: null,
     }
   },
+
   computed: {
     isGameInProgress() {
       return this.$store.getters['getIsGameInProgress']
@@ -56,14 +57,27 @@ export default {
 
 <style scoped lang="scss">
 .controls-container {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: auto;
 
-  .controls-timer {
-    margin-bottom: 20px;
+  .controls-button {
+    button {
+      width: 100%;
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      background-color: inherit;
+      border-radius: 5px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color ease 0.5s;
+
+      &:hover:enabled {
+        background-color: #eeeeee;
+        transition: background-color ease 0.5s;
+      }
+    }
   }
 }
 </style>

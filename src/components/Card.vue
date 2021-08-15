@@ -3,13 +3,15 @@
     class="card-container"
     :class="[{ match: isMatch }, { excluded: isExcluded }]"
     @click="cardClickHandler"
-    :style="isOpen ? 'background-color: yellow' : ''"
   >
-    <img
-      :src="require(`../assets/icons/${card.name}.png`)"
-      :alt="`${card.name} icon`"
-      class="card-image"
-    />
+    <transition name="fade">
+      <img
+        v-show="isOpen || isExcluded"
+        :src="require(`../assets/icons/${card.name}.png`)"
+        :alt="`${card.name} icon`"
+        class="card-image"
+      />
+    </transition>
   </div>
 </template>
 
@@ -84,5 +86,14 @@ export default {
 
 .match {
   background-color: rgba(34, 139, 34, 0.3);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
