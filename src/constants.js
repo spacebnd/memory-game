@@ -19,6 +19,5 @@ export const ICON_NAMES = [
   'touch-app',
 ]
 
-export const OPEN_CARD_DISPLAY_DURATION = 5000
-export const MATCH_DISPLAY_DURATION = 800
-export const NOT_MATCH_DISPLAY_DURATION = 400
+export const OPEN_SINGLE_CARD_DISPLAY_DURATION = 5000
+export const OPEN_BOTH_CARDS_DISPLAY_DURATION = 400

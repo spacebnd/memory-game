@@ -1,11 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { generateCardItem } from '../utils'
-import {
-  MATCH_DISPLAY_DURATION,
-  NOT_MATCH_DISPLAY_DURATION,
-  OPEN_CARD_DISPLAY_DURATION,
-} from '../constants'
+import { OPEN_BOTH_CARDS_DISPLAY_DURATION, OPEN_SINGLE_CARD_DISPLAY_DURATION } from '../constants'
 
 Vue.use(Vuex)
 
@@ -85,7 +81,7 @@ export default new Vuex.Store({
     setCardTimer(state, callback) {
       state.cardTimer = setTimeout(() => {
         callback()
-      }, OPEN_CARD_DISPLAY_DURATION)
+      }, OPEN_SINGLE_CARD_DISPLAY_DURATION)
     },
 
     resetCardTimer(state) {
@@ -146,18 +142,15 @@ export default new Vuex.Store({
         }
 
         commit('setIsUiLocked', true)
-        setTimeout(
-          () => {
-            if (isMatch) {
-              commit('setMatchCards', null)
-              commit('setExcludedCards', [firstCard.id, secondCard.id])
-            }
-            commit('resetAllOpenCards')
-            commit('resetCardTimer')
-            commit('setIsUiLocked', false)
-          },
-          isMatch ? MATCH_DISPLAY_DURATION : NOT_MATCH_DISPLAY_DURATION
-        )
+        setTimeout(() => {
+          if (isMatch) {
+            commit('setMatchCards', null)
+            commit('setExcludedCards', [firstCard.id, secondCard.id])
+          }
+          commit('resetAllOpenCards')
+          commit('resetCardTimer')
+          commit('setIsUiLocked', false)
+        }, OPEN_BOTH_CARDS_DISPLAY_DURATION)
       }
     },
   },
