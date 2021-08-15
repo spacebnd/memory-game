@@ -1,19 +1,18 @@
 <template>
-  <div class="controls-panel-container">Contols</div>
+  <div class="leaderboard-container">Leaderboard</div>
 </template>
 
 <script>
 export default {
-  name: 'ControlsPanel',
+  name: 'Leaderboard',
 }
 </script>
 
-<style scoped lang="scss">
-.controls-panel-container {
+<style scoped>
+.leaderboard-container {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: auto;
 }
 </style>
