@@ -136,7 +136,7 @@ export default new Vuex.Store({
       if (targetCard === 'firstCard') {
         const callback = () => commit('resetAllOpenCards')
         commit('setCardTimer', callback)
-      } else {
+      } else if (id !== state.firstCard) {
         const firstCard = state.cards.find((card) => card.id === state.firstCard)
         const secondCard = state.cards.find((card) => card.id === state.secondCard)
         const isMatch = firstCard.name !== null && firstCard.name === secondCard.name
