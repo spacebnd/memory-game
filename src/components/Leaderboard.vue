@@ -26,7 +26,7 @@ export default {
     const results = localStorage.getItem('leaderboard')
 
     if (results?.length) {
-      this.$store.commit('setResultToLeaderboard', results)
+      this.$store.commit('setResultToLeaderboard', JSON.parse(results))
     }
   },
 }
@@ -44,8 +44,11 @@ export default {
   }
 
   .leaderboard-list {
+    min-width: 120px;
+    padding: 10px;
+    height: 500px;
     list-style: none;
-    padding: 0;
+    overflow-y: auto;
   }
 }
 </style>
