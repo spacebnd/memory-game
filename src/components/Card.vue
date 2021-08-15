@@ -1,7 +1,11 @@
 <template>
-  <div class="card-container" @click="cardClickHandler">
+  <div
+    class="card-container"
+    :class="[{ match: isMatch }, { excluded: isExcluded }]"
+    @click="cardClickHandler"
+  >
     <img
-      v-show="isCardOpen"
+      v-show="isOpen"
       :src="require(`../assets/icons/${card.name}.png`)"
       :alt="`${card.name} icon`"
       class="card-image"
@@ -21,14 +25,28 @@ export default {
   },
 
   computed: {
-    isCardOpen() {
-      return this.$store.getters['getOpenedCards'].includes(this.card.id)
+    isOpen() {
+      return this.$store.getters['getOpenCards'].includes(this.card.id)
+    },
+
+    isExcluded() {
+      return this.$store.getters['getExcludedCards'].includes(this.card.id)
+    },
+
+    isMatch() {
+      return this.$store.getters['getMatchCards'].includes(this.card.id)
+    },
+
+    isUiLocked() {
+      return this.$store.getters['getIsUiLocked']
     },
   },
 
   methods: {
     cardClickHandler() {
-      this.$store.dispatch('openCard', this.card.id)
+      if (!this.isUiLocked && !this.isExcluded) {
+        this.$store.dispatch('openCard', this.card.id)
+      }
     },
   },
 }
@@ -46,6 +64,7 @@ export default {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   transition: box-shadow ease 0.3s;
+  user-select: none;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
@@ -57,5 +76,13 @@ export default {
   .card-image {
     width: 30%;
   }
+}
+
+.excluded {
+  background-color: rgba(105, 105, 105, 0.3);
+}
+
+.match {
+  background-color: rgba(34, 139, 34, 0.3);
 }
 </style>

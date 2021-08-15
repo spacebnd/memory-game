@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { generateCardItem } from '../utils'
-import { OPEN_CARD_DURATION } from '../constants'
+import {
+  ERROR_DISPLAY_DURATION,
+  MATCH_DISPLAY_DURATION,
+  OPEN_CARD_DISPLAY_DURATION,
+} from '../constants'
 
 Vue.use(Vuex)
 
@@ -10,15 +14,22 @@ export default new Vuex.Store({
     cards: [],
     firstCard: null,
     secondCard: null,
+    excludedCards: [],
+    matchCards: [],
     cardTimer: null,
+    isUiLocked: false,
   },
 
   getters: {
     getCards: (state) => state.cards,
 
-    getOpenedCards: (state) => [state.firstCard, state.secondCard],
+    getOpenCards: (state) => [state.firstCard, state.secondCard],
 
-    isBothCardsOpened: (state) => !!(state.firstCard && state.secondCard),
+    getExcludedCards: (state) => state.excludedCards,
+
+    getMatchCards: (state) => state.matchCards,
+
+    getIsUiLocked: (state) => state.isUiLocked,
   },
 
   mutations: {
@@ -26,27 +37,47 @@ export default new Vuex.Store({
       state.cards = payload
     },
 
-    setOpenedCard(state, payload) {
+    setOpenCard(state, payload) {
       state[payload.targetCard] = payload.id
     },
 
-    resetOpenedCard(state, targetCard) {
+    resetOpenCard(state, targetCard) {
       state[targetCard] = null
     },
 
-    resetAllOpenedCards(state) {
+    resetAllOpenCards(state) {
       state.firstCard = null
       state.secondCard = null
+    },
+
+    setMatchCards(state, payload) {
+      if (payload) {
+        payload.forEach((id) => {
+          state.matchCards.push(id)
+        })
+      } else {
+        state.matchCards = []
+      }
+    },
+
+    setExcludedCards(state, ids) {
+      ids.forEach((id) => {
+        state.excludedCards.push(id)
+      })
     },
 
     setCardTimer(state, callback) {
       state.cardTimer = setTimeout(() => {
         callback()
-      }, OPEN_CARD_DURATION)
+      }, OPEN_CARD_DISPLAY_DURATION)
     },
 
     resetCardTimer(state) {
       clearTimeout(state.cardTimer)
+    },
+
+    toggleIsUiLocked(state, payload) {
+      state.isUiLocked = payload
     },
   },
 
@@ -61,22 +92,39 @@ export default new Vuex.Store({
       commit('setCards', cards)
     },
 
-    openCard({ commit, state, getters }, id) {
-      if (getters.isBothCardsOpened) {
-        commit('resetAllOpenedCards')
-        commit('resetCardTimer')
-      }
-
+    openCard({ commit, state }, id) {
       const targetCard = state.firstCard ? 'secondCard' : 'firstCard'
       const payload = {
         targetCard,
         id,
       }
-      commit('setOpenedCard', payload)
+      commit('setOpenCard', payload)
 
       if (targetCard === 'firstCard') {
-        const callback = () => commit('resetAllOpenedCards')
+        const callback = () => commit('resetAllOpenCards')
         commit('setCardTimer', callback)
+      } else {
+        const firstCard = state.cards.find((card) => card.id === state.firstCard)
+        const secondCard = state.cards.find((card) => card.id === state.secondCard)
+        const isMatch = firstCard.name !== null && firstCard.name === secondCard.name
+
+        if (isMatch) {
+          commit('setMatchCards', [firstCard.id, secondCard.id])
+        }
+
+        commit('toggleIsUiLocked', true)
+        setTimeout(
+          () => {
+            if (isMatch) {
+              commit('setMatchCards', null)
+              commit('setExcludedCards', [firstCard.id, secondCard.id])
+            }
+            commit('resetAllOpenCards')
+            commit('resetCardTimer')
+            commit('toggleIsUiLocked', false)
+          },
+          isMatch ? MATCH_DISPLAY_DURATION : ERROR_DISPLAY_DURATION
+        )
       }
     },
   },
