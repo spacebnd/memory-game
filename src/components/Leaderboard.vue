@@ -21,6 +21,14 @@ export default {
       return this.$store.getters['getLeaderboard']
     },
   },
+
+  created() {
+    const results = localStorage.getItem('leaderboard')
+
+    if (results?.length) {
+      this.$store.commit('setResultToLeaderboard', results)
+    }
+  },
 }
 </script>
 

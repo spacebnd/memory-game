@@ -37,6 +37,10 @@ export default {
     },
   },
 
+  beforeDestroy() {
+    clearInterval(this.timer)
+  },
+
   methods: {
     startButtonHandler() {
       this.$store.dispatch('startGame')

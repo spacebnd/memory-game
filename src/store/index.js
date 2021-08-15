@@ -92,8 +92,14 @@ export default new Vuex.Store({
       clearTimeout(state.cardTimer)
     },
 
-    setResultToLeaderboard(state, time) {
-      state.leaderboard.push(time)
+    setResultToLeaderboard(state, result) {
+      if (Array.isArray(result)) {
+        state.leaderboard = result
+      } else {
+        state.leaderboard.push(result)
+      }
+
+      localStorage.setItem('leaderboard', JSON.stringify(state.leaderboard))
     },
   },
 
