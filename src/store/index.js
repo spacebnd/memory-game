@@ -19,7 +19,7 @@ export default new Vuex.Store({
     excludedCards: [],
     matchCards: [],
     cardTimer: null,
-    leaderboard: [],
+    leaderboard: ['12:21:12', '00:02:42', '21:45:21', '00:12:42', '01:12:11'],
   },
 
   getters: {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
 
     getMatchCards: (state) => state.matchCards,
 
-    getLeaderboard: (state) => state.leaderboard,
+    getLeaderboard: (state) => state.leaderboard.sort(),
   },
 
   mutations: {
