@@ -93,9 +93,8 @@ export default new Vuex.Store({
         state.leaderboard = result
       } else {
         state.leaderboard.push(result)
+        localStorage.setItem('leaderboard', JSON.stringify(state.leaderboard))
       }
-
-      localStorage.setItem('leaderboard', JSON.stringify(state.leaderboard))
     },
   },
 
