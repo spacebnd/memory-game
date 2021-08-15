@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container">
-    <ControlsPanel />
+    <Controls />
     <CardsContainer />
     <Leaderboard />
   </div>
@@ -8,13 +8,13 @@
 
 <script>
 import CardsContainer from '../components/CardsContainer'
-import ControlsPanel from '../components/ControlsPanel'
+import Controls from '../components/Controls'
 import { ICON_NAMES } from '../constants'
 import Leaderboard from '../components/Leaderboard'
 export default {
   name: 'Homepage',
 
-  components: { Leaderboard, ControlsPanel, CardsContainer },
+  components: { Leaderboard, Controls, CardsContainer },
 
   mounted() {
     this.$store.dispatch('generateCardItems', [...ICON_NAMES])

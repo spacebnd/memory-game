@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderboard-container">Leaderboard</div>
+  <div class="leaderboard-container">Best results</div>
 </template>
 
 <script>
