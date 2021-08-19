@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { generateCardItem } from '../utils'
 import { OPEN_BOTH_CARDS_DISPLAY_DURATION, OPEN_SINGLE_CARD_DISPLAY_DURATION } from '../constants'
+import { generateCardItem } from '../utils'
 
 Vue.use(Vuex)
 

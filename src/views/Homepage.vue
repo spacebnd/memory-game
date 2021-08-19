@@ -7,10 +7,11 @@
 </template>
 
 <script>
+import { ICON_NAMES } from '../constants'
 import CardsContainer from '../components/CardsContainer'
 import Controls from '../components/Controls'
-import { ICON_NAMES } from '../constants'
 import Leaderboard from '../components/Leaderboard'
+
 export default {
   name: 'Homepage',
 
