@@ -93,7 +93,6 @@ export default new Vuex.Store({
         state.leaderboard = result
       } else {
         state.leaderboard.push(result)
-        localStorage.setItem('leaderboard', JSON.stringify(state.leaderboard))
       }
     },
   },
@@ -114,10 +113,12 @@ export default new Vuex.Store({
       commit('setIsUiLocked', false)
     },
 
-    finishGame({ commit }, time) {
+    finishGame({ commit, state }, time) {
       commit('setIsGameInProgress', false)
       commit('setIsUiLocked', true)
       commit('setResultToLeaderboard', time)
+
+      localStorage.setItem('leaderboard', JSON.stringify(state.leaderboard))
     },
 
     openCard({ commit, state }, id) {
