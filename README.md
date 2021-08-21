@@ -1,5 +1,8 @@
 # memory-game
 
+## Demo
+https://spacebnd.github.io/memory-game/
+
 ## Project setup
 ```
 npm install
