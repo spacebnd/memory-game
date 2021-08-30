@@ -69,16 +69,29 @@ export default {
   .controls-button {
     button {
       width: 100%;
+      height: 30px;
       font-family: Avenir, Helvetica, Arial, sans-serif;
       font-weight: 700;
-      background-color: inherit;
+      background-color: #9ece9e;
+      border: 1px solid black;
       border-radius: 5px;
+      color: black;
       cursor: pointer;
       user-select: none;
       transition: background-color ease 0.5s;
 
       &:hover:enabled {
-        background-color: #eeeeee;
+        background-color: #62ab62;
+        transition: background-color ease 0.5s;
+      }
+
+      &:focus {
+        color: black;
+      }
+
+      &:disabled {
+        color: #808080;
+        background-color: #c9c9c9;
         transition: background-color ease 0.5s;
       }
     }
