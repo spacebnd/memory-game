@@ -4,13 +4,13 @@
       <span>{{ formattedCurrentTime }}</span>
     </div>
     <div class="controls-button">
-      <button @click="startButtonHandler" :disabled="isGameInProgress">Start</button>
+      <button @click="startButtonHandler" :disabled="isGameInProgress">{{ buttonLabel }}</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Controls',
@@ -29,6 +29,10 @@ export default {
       isGameOver: 'getIsGameOver',
     }),
 
+    buttonLabel() {
+      return this.isGameOver ? 'Play again' : 'Start'
+    },
+
     formattedCurrentTime() {
       const date = new Date(null)
       date.setSeconds(this.currentTime / 1000)
@@ -43,8 +47,13 @@ export default {
 
   methods: {
     ...mapActions(['startGame', 'finishGame']),
+    ...mapMutations(['resetAllExcludedCards']),
 
     startButtonHandler() {
+      if (this.isGameOver) {
+        this.currentTime = 0
+        this.resetAllExcludedCards()
+      }
       this.startGame()
 
       this.timer = setInterval(() => {
@@ -53,7 +62,6 @@ export default {
         if (this.isGameOver) {
           clearInterval(this.timer)
           this.finishGame(this.formattedCurrentTime)
-          this.currentTime = 0
         }
       }, 1000)
     },

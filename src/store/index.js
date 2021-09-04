@@ -69,6 +69,10 @@ export default new Vuex.Store({
       state.secondCard = null
     },
 
+    resetAllExcludedCards(state) {
+      state.excludedCards = []
+    },
+
     setMatchCards(state, payload) {
       if (payload) {
         payload.forEach((id) => {
