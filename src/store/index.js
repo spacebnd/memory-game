@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isMobile: false,
     isGameInProgress: false,
     isUiLocked: true,
     cards: [],
@@ -19,6 +20,8 @@ export default new Vuex.Store({
   },
 
   getters: {
+    getIsMobile: (state) => state.isMobile,
+
     getIsGameInProgress: (state) => state.isGameInProgress,
 
     getIsGameOver: (state) => state.cards.length === state.excludedCards.length,
@@ -37,6 +40,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    setIsMobile(state, payload) {
+      state.isMobile = payload
+    },
+
     setIsGameInProgress(state, payload) {
       state.isGameInProgress = payload
     },

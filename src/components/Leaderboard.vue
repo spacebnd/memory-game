@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderboard-container">
+  <div :class="`${isMobile ? 'leaderboard-container--mobile' : 'leaderboard-container'}`">
     <div class="leaderboard-header">Best results</div>
     <ul class="leaderboard-list">
       <li class="leaderboard-list-item" v-for="(time, index) of leaderboard" :key="index + time">
@@ -17,6 +17,10 @@ export default {
   name: 'Leaderboard',
 
   computed: {
+    isMobile() {
+      return this.$store.getters['getIsMobile']
+    },
+
     leaderboard() {
       return this.$store.getters['getLeaderboard']
     },
@@ -38,17 +42,24 @@ export default {
   flex-direction: column;
   justify-content: center;
 
-  .leaderboard-header,
-  .leaderboard-position {
-    font-weight: 700;
+  &--mobile {
+    margin-top: 20px;
+    .leaderboard-list {
+      height: auto !important;
+    }
   }
+}
 
-  .leaderboard-list {
-    min-width: 120px;
-    padding: 10px;
-    height: 500px;
-    list-style: none;
-    overflow-y: auto;
-  }
+.leaderboard-header,
+.leaderboard-position {
+  font-weight: 700;
+}
+
+.leaderboard-list {
+  min-width: 120px;
+  padding: 10px;
+  height: 500px;
+  list-style: none;
+  overflow-y: auto;
 }
 </style>

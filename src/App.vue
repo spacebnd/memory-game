@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ mobile: isMobile }">
     <Homepage />
   </div>
 </template>
@@ -9,8 +9,15 @@ import Homepage from './views/Homepage'
 
 export default {
   name: 'App',
+
   components: {
     Homepage,
+  },
+
+  computed: {
+    isMobile() {
+      return this.$store.getters['getIsMobile']
+    },
   },
 }
 </script>
@@ -23,5 +30,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.mobile {
+  margin-top: 10px !important;
 }
 </style>

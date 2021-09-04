@@ -1,7 +1,7 @@
 <template>
-  <div class="controls-container">
+  <div :class="`${isMobile ? 'controls-container--mobile' : 'controls-container'}`">
     <div class="controls-timer">
-      <p>{{ formattedCurrentTime }}</p>
+      <span>{{ formattedCurrentTime }}</span>
     </div>
     <div class="controls-button">
       <button @click="startButtonHandler" :disabled="isGameInProgress">Start</button>
@@ -21,6 +21,10 @@ export default {
   },
 
   computed: {
+    isMobile() {
+      return this.$store.getters['getIsMobile']
+    },
+
     isGameInProgress() {
       return this.$store.getters['getIsGameInProgress']
     },
@@ -66,34 +70,42 @@ export default {
   justify-content: center;
   overflow: auto;
 
-  .controls-button {
+  &--mobile {
+    margin-top: 10px;
+
     button {
-      width: 100%;
-      height: 30px;
-      font-family: Avenir, Helvetica, Arial, sans-serif;
-      font-weight: 700;
-      background-color: #9ece9e;
-      border: 1px solid black;
-      border-radius: 5px;
-      color: black;
-      cursor: pointer;
-      user-select: none;
+      width: 50% !important;
+    }
+  }
+}
+
+.controls-button {
+  button {
+    width: 100%;
+    height: 30px;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    background-color: #9ece9e;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color ease 0.5s;
+
+    &:hover:enabled {
+      background-color: #62ab62;
       transition: background-color ease 0.5s;
+    }
 
-      &:hover:enabled {
-        background-color: #62ab62;
-        transition: background-color ease 0.5s;
-      }
+    &:focus {
+      color: black;
+    }
 
-      &:focus {
-        color: black;
-      }
-
-      &:disabled {
-        color: #808080;
-        background-color: #c9c9c9;
-        transition: background-color ease 0.5s;
-      }
+    &:disabled {
+      color: #808080;
+      background-color: #c9c9c9;
+      transition: background-color ease 0.5s;
     }
   }
 }

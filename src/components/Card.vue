@@ -1,7 +1,7 @@
 <template>
   <div
     class="card-container"
-    :class="[{ match: isMatch }, { excluded: isExcluded }]"
+    :class="[{ match: isMatch }, { excluded: isExcluded }, { 'card-container--mobile': isMobile }]"
     @click="cardClickHandler"
   >
     <transition name="fade">
@@ -27,6 +27,10 @@ export default {
   },
 
   computed: {
+    isMobile() {
+      return this.$store.getters['getIsMobile']
+    },
+
     isOpen() {
       return this.$store.getters['getOpenCards'].includes(this.card.id)
     },
@@ -67,6 +71,12 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
   transition: box-shadow ease 0.3s;
   user-select: none;
+
+  &--mobile {
+    height: 8vh;
+    width: 20vw;
+    margin: 4px;
+  }
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
