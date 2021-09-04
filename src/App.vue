@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Homepage from './views/Homepage'
 
 export default {
@@ -15,9 +16,9 @@ export default {
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+    }),
   },
 }
 </script>

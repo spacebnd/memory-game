@@ -1,10 +1,11 @@
 <template>
   <div :class="`${isMobile ? 'cards-container--mobile' : 'cards-container'}`">
-    <Card v-for="card of cards" :key="card.id" :card="card" />
+    <Card v-for="card of shuffledCards" :key="card.id" :card="card" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import _shuffle from 'lodash/shuffle'
 import Card from './Card'
 
@@ -14,12 +15,13 @@ export default {
   components: { Card },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+      cards: 'getCards',
+    }),
 
-    cards() {
-      return _shuffle(this.$store.getters['getCards'])
+    shuffledCards() {
+      return _shuffle(this.cards)
     },
   },
 }

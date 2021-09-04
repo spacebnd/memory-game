@@ -13,25 +13,28 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   name: 'Leaderboard',
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
-
-    leaderboard() {
-      return this.$store.getters['getLeaderboard']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+      leaderboard: 'getLeaderboard',
+    }),
   },
 
   created() {
     const results = localStorage.getItem('leaderboard')
 
     if (results?.length) {
-      this.$store.commit('setResultToLeaderboard', JSON.parse(results))
+      this.setResultToLeaderboard(JSON.parse(results))
     }
+  },
+
+  methods: {
+    ...mapMutations(['setResultToLeaderboard']),
   },
 }
 </script>

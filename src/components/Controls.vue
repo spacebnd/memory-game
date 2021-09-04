@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'Controls',
 
@@ -21,17 +23,11 @@ export default {
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
-
-    isGameInProgress() {
-      return this.$store.getters['getIsGameInProgress']
-    },
-
-    isGameOver() {
-      return this.$store.getters['getIsGameOver']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+      isGameInProgress: 'getIsGameInProgress',
+      isGameOver: 'getIsGameOver',
+    }),
 
     formattedCurrentTime() {
       const date = new Date(null)
@@ -46,15 +42,17 @@ export default {
   },
 
   methods: {
+    ...mapActions(['startGame', 'finishGame']),
+
     startButtonHandler() {
-      this.$store.dispatch('startGame')
+      this.startGame()
 
       this.timer = setInterval(() => {
         this.currentTime += 1000
 
         if (this.isGameOver) {
           clearInterval(this.timer)
-          this.$store.dispatch('finishGame', this.formattedCurrentTime)
+          this.finishGame(this.formattedCurrentTime)
           this.currentTime = 0
         }
       }, 1000)

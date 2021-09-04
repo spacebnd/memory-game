@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'Card',
 
@@ -27,9 +29,10 @@ export default {
   },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+      isUiLocked: 'getIsUiLocked',
+    }),
 
     isOpen() {
       return this.$store.getters['getOpenCards'].includes(this.card.id)
@@ -42,16 +45,14 @@ export default {
     isMatch() {
       return this.$store.getters['getMatchCards'].includes(this.card.id)
     },
-
-    isUiLocked() {
-      return this.$store.getters['getIsUiLocked']
-    },
   },
 
   methods: {
+    ...mapActions(['openCard']),
+
     cardClickHandler() {
       if (!this.isUiLocked && !this.isExcluded) {
-        this.$store.dispatch('openCard', this.card.id)
+        this.openCard(this.card.id)
       }
     },
   },

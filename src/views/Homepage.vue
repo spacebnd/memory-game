@@ -7,11 +7,12 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { isMobile } from 'mobile-device-detect'
 import { ICON_NAMES } from '../constants'
 import CardsContainer from '../components/CardsContainer'
 import Controls from '../components/Controls'
 import Leaderboard from '../components/Leaderboard'
-import { isMobile } from 'mobile-device-detect'
 
 export default {
   name: 'Homepage',
@@ -19,17 +20,22 @@ export default {
   components: { Leaderboard, Controls, CardsContainer },
 
   computed: {
-    isMobile() {
-      return this.$store.getters['getIsMobile']
-    },
+    ...mapGetters({
+      isMobile: 'getIsMobile',
+    }),
   },
 
   created() {
-    this.$store.commit('setIsMobile', isMobile)
+    this.setIsMobile(isMobile)
   },
 
   mounted() {
-    this.$store.dispatch('generateCardItems', [...ICON_NAMES])
+    this.generateCardItems([...ICON_NAMES])
+  },
+
+  methods: {
+    ...mapActions(['generateCardItems']),
+    ...mapMutations(['setIsMobile']),
   },
 }
 </script>
