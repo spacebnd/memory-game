@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { isMobile } from 'mobile-device-detect'
 import { ICON_NAMES } from '../constants'
 import CardsContainer from '../components/CardsContainer'
@@ -20,9 +20,7 @@ export default {
   components: { Leaderboard, Controls, CardsContainer },
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-    }),
+    ...mapState(['isMobile']),
   },
 
   created() {

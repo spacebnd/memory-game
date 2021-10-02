@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import _shuffle from 'lodash/shuffle'
 import Card from './Card'
 
@@ -15,10 +15,7 @@ export default {
   components: { Card },
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-      cards: 'getCards',
-    }),
+    ...mapState(['isMobile', 'cards']),
 
     shuffledCards() {
       return _shuffle(this.cards)

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Card',
@@ -29,21 +29,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-      isUiLocked: 'getIsUiLocked',
-    }),
+    ...mapState(['isMobile', 'isUiLocked', 'excludedCards', 'matchCards']),
+    ...mapGetters({ openCards: 'getOpenCards' }),
 
     isOpen() {
-      return this.$store.getters['getOpenCards'].includes(this.card.id)
+      return this.openCards.includes(this.card.id)
     },
 
     isExcluded() {
-      return this.$store.getters['getExcludedCards'].includes(this.card.id)
+      return this.excludedCards.includes(this.card.id)
     },
 
     isMatch() {
-      return this.$store.getters['getMatchCards'].includes(this.card.id)
+      return this.matchCards.includes(this.card.id)
     },
   },
 

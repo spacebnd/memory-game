@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Controls',
@@ -23,11 +23,8 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-      isGameInProgress: 'getIsGameInProgress',
-      isGameOver: 'getIsGameOver',
-    }),
+    ...mapState(['isMobile', 'isGameInProgress']),
+    ...mapGetters({ isGameOver: 'getIsGameOver' }),
 
     buttonLabel() {
       return this.isGameOver ? 'Play again' : 'Start'

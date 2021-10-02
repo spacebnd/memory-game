@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import Homepage from './views/Homepage'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -16,9 +16,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-    }),
+    ...mapState(['isMobile']),
   },
 }
 </script>

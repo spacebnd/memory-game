@@ -20,23 +20,9 @@ export default new Vuex.Store({
   },
 
   getters: {
-    getIsMobile: (state) => state.isMobile,
-
-    getIsGameInProgress: (state) => state.isGameInProgress,
-
     getIsGameOver: (state) => state.cards.length === state.excludedCards.length,
-
-    getIsUiLocked: (state) => state.isUiLocked,
-
-    getCards: (state) => state.cards,
-
     getOpenCards: (state) => [state.firstCard, state.secondCard],
-
-    getExcludedCards: (state) => state.excludedCards,
-
-    getMatchCards: (state) => state.matchCards,
-
-    getLeaderboard: (state) => state.leaderboard.sort(),
+    getSortedLeaderboard: (state) => state.leaderboard.sort(),
   },
 
   mutations: {

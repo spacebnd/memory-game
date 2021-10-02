@@ -13,16 +13,14 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Leaderboard',
 
   computed: {
-    ...mapGetters({
-      isMobile: 'getIsMobile',
-      leaderboard: 'getLeaderboard',
-    }),
+    ...mapState(['isMobile', 'leaderboard']),
+    ...mapGetters({ leaderboard: 'getSortedLeaderboard' }),
   },
 
   created() {
