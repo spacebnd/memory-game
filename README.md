@@ -1,7 +1,9 @@
-# memory-game
+# MemoryGame
 
 ## Demo
 https://spacebnd.github.io/memory-game/
+
+![Preview](./src/assets/images/preview.jpg?raw=true)
 
 ## Project setup
 ```
